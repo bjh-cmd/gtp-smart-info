@@ -1,0 +1,904 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026 경기스마트제조혁신센터 스마트공장 지원사업</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #F2F4F7;
+    --card: #FFFFFF;
+    --text: #1A1D23;
+    --sub: #5A6070;
+    --accent-gd: #1565C0;
+    --accent-gov: #2E7D32;
+    --border: #E2E5EB;
+    --tag-gd: #E3F0FF;
+    --tag-gov: #E6F4EA;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  /* Header */
+  .header {
+    background: linear-gradient(135deg, #0D3B66 0%, #1565C0 60%, #1E88E5 100%);
+    color: #fff;
+    padding: 44px 20px 36px;
+    text-align: center;
+  }
+  .header .org {
+    font-size: 12px;
+    font-weight: 600;
+    opacity: 0.8;
+    letter-spacing: 0.03em;
+    margin-bottom: 6px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: rgba(255,255,255,0.18);
+    border-radius: 20px;
+    padding: 4px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 800;
+    line-height: 1.35;
+    margin-bottom: 8px;
+  }
+  .header p {
+    font-size: 13px;
+    opacity: 0.8;
+    max-width: 340px;
+    margin: 0 auto;
+  }
+
+  .content { padding: 16px 14px 32px; max-width: 560px; margin: 0 auto; }
+
+  /* Main Tabs */
+  .tabs {
+    display: flex;
+    gap: 6px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background: var(--bg);
+    padding: 10px 0;
+  }
+  .tab-btn {
+    flex: 1;
+    border: none;
+    border-radius: 10px;
+    padding: 12px 6px;
+    font-size: 13px;
+    font-weight: 700;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.2s;
+    background: var(--card);
+    color: var(--sub);
+    border: 1.5px solid var(--border);
+    word-break: keep-all;
+    line-height: 1.35;
+  }
+  .tab-btn.active-gd { background: var(--accent-gd); color: #fff; border-color: var(--accent-gd); }
+  .tab-btn.active-gov { background: var(--accent-gov); color: #fff; border-color: var(--accent-gov); }
+
+  .panel { display: none; }
+  .panel.active { display: block; }
+
+  /* Sub nav */
+  .sub-nav {
+    display: flex;
+    gap: 6px;
+    margin-bottom: 14px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+    padding-bottom: 2px;
+  }
+  .sub-nav::-webkit-scrollbar { display: none; }
+  .sub-btn {
+    white-space: nowrap;
+    border: none;
+    border-radius: 20px;
+    padding: 8px 14px;
+    font-size: 12px;
+    font-weight: 600;
+    font-family: inherit;
+    cursor: pointer;
+    transition: all 0.15s;
+    background: #EEF0F3;
+    color: var(--sub);
+    flex-shrink: 0;
+  }
+  .sub-btn.active-gd { background: var(--tag-gd); color: var(--accent-gd); }
+  .sub-btn.active-gov { background: var(--tag-gov); color: var(--accent-gov); }
+
+  .sub-panel { display: none; }
+  .sub-panel.active { display: block; }
+
+  /* Cards */
+  .card {
+    background: var(--card);
+    border-radius: 14px;
+    padding: 20px 18px;
+    margin-bottom: 12px;
+    border: 1px solid var(--border);
+  }
+  .card-title {
+    font-size: 14px;
+    font-weight: 700;
+    margin-bottom: 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .card-title .icon {
+    width: 26px; height: 26px;
+    border-radius: 7px;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 14px; flex-shrink: 0;
+  }
+  .icon-gd { background: var(--tag-gd); }
+  .icon-gov { background: var(--tag-gov); }
+
+  /* Section header */
+  .section-header {
+    font-size: 16px;
+    font-weight: 800;
+    margin-bottom: 6px;
+    line-height: 1.4;
+  }
+  .section-desc {
+    font-size: 12.5px;
+    color: var(--sub);
+    margin-bottom: 16px;
+    line-height: 1.6;
+  }
+
+  /* Info rows */
+  .info-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 9px 0;
+    border-bottom: 1px solid var(--border);
+    gap: 10px;
+  }
+  .info-row:last-child { border-bottom: none; }
+  .info-label {
+    font-size: 12.5px;
+    color: var(--sub);
+    flex-shrink: 0;
+    min-width: 72px;
+    font-weight: 500;
+  }
+  .info-value {
+    font-size: 12.5px;
+    font-weight: 600;
+    text-align: right;
+    word-break: keep-all;
+  }
+
+  /* Type cards */
+  .type-grid { display: flex; flex-direction: column; gap: 8px; }
+  .type-card {
+    border-radius: 10px;
+    padding: 14px 14px;
+    border: 1px solid var(--border);
+    background: #FAFBFC;
+  }
+  .type-name { font-size: 13px; font-weight: 700; margin-bottom: 3px; }
+  .type-sub { font-size: 11.5px; color: var(--sub); line-height: 1.5; margin-bottom: 6px; }
+  .type-meta {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    font-size: 11.5px;
+  }
+  .type-tag {
+    padding: 3px 8px;
+    border-radius: 5px;
+    font-weight: 600;
+    font-size: 11px;
+  }
+  .tag-blue { background: #E3F0FF; color: #1565C0; }
+  .tag-green { background: #E6F4EA; color: #2E7D32; }
+  .tag-gray { background: #EEF0F3; color: #5A6070; }
+
+  .amount { font-weight: 800; font-size: 14px; }
+  .amount-gd { color: var(--accent-gd); }
+  .amount-gov { color: var(--accent-gov); }
+
+  /* Note */
+  .note-box {
+    background: #FFFBF0;
+    border: 1px solid #F0E4C4;
+    border-radius: 10px;
+    padding: 12px 14px;
+    font-size: 11.5px;
+    color: #7A6830;
+    line-height: 1.6;
+    margin-top: 8px;
+  }
+
+  /* Steps */
+  .steps { padding-left: 16px; }
+  .step { position: relative; padding: 0 0 14px 20px; border-left: 2px solid var(--border); }
+  .step:last-child { border-left-color: transparent; padding-bottom: 0; }
+  .step::before {
+    content: '';
+    position: absolute; left: -7px; top: 2px;
+    width: 12px; height: 12px; border-radius: 50%;
+    border: 2.5px solid var(--accent-gd); background: #fff;
+  }
+  .panel-gov .step::before { border-color: var(--accent-gov); }
+  .step-title { font-size: 12.5px; font-weight: 700; margin-bottom: 1px; }
+  .step-desc { font-size: 11.5px; color: var(--sub); }
+
+  /* Tour table */
+  .tour-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin-top: 8px;
+  }
+  .tour-table th {
+    background: #F0F2F5;
+    padding: 8px 6px;
+    font-weight: 700;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    font-size: 11px;
+  }
+  .tour-table td {
+    padding: 8px 6px;
+    text-align: center;
+    border-bottom: 1px solid var(--border);
+    word-break: keep-all;
+    line-height: 1.45;
+  }
+  .tour-table td:first-child { font-weight: 600; }
+
+  /* CTA */
+  .cta-card { text-align: center; padding: 24px 16px; }
+  .cta-card p { font-size: 12px; color: var(--sub); margin-bottom: 14px; line-height: 1.7; }
+  .cta-btn {
+    display: inline-block;
+    padding: 13px 28px;
+    border-radius: 10px;
+    font-size: 13.5px;
+    font-weight: 700;
+    color: #fff;
+    text-decoration: none;
+    transition: opacity 0.2s;
+  }
+  .cta-btn:hover { opacity: 0.88; }
+  .cta-btn-gd { background: var(--accent-gd); }
+  .cta-btn-gov { background: var(--accent-gov); }
+
+  /* Support list */
+  .support-item {
+    padding: 10px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .support-item:last-child { border-bottom: none; }
+  .support-item strong {
+    display: block;
+    font-size: 12.5px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .support-item p {
+    font-size: 11.5px;
+    color: var(--sub);
+    line-height: 1.55;
+  }
+
+  /* Footer */
+  .footer {
+    text-align: center;
+    padding: 20px 16px 28px;
+    font-size: 11px;
+    color: #999;
+    line-height: 1.6;
+  }
+
+  /* Divider */
+  .divider {
+    height: 1px;
+    background: var(--border);
+    margin: 4px 0 14px;
+  }
+
+  /* Contact */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin-top: 10px;
+  }
+  .contact-box {
+    background: #FAFBFC;
+    border-radius: 8px;
+    padding: 12px;
+    border: 1px solid var(--border);
+  }
+  .contact-box .region {
+    font-size: 11px;
+    font-weight: 700;
+    color: var(--accent-gd);
+    margin-bottom: 4px;
+  }
+  .contact-box .tel {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--text);
+  }
+  .contact-box .addr {
+    font-size: 10.5px;
+    color: var(--sub);
+    margin-top: 3px;
+    line-height: 1.45;
+  }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <div class="org">경기테크노파크</div>
+  <div class="badge">2026년 지원사업 안내</div>
+  <h1>경기스마트제조혁신센터<br>스마트공장 지원사업</h1>
+  <p>디지털제조혁신, 경기의 도약</p>
+</div>
+
+<div class="content">
+
+  <!-- Main Tabs -->
+  <div class="tabs">
+    <button class="tab-btn active-gd" onclick="showMain('gd')">경기도형<br>스마트공장 종합지원</button>
+    <button class="tab-btn" onclick="showMain('gov')">정부형<br>스마트공장 지원사업</button>
+  </div>
+
+  <!-- ==================== 경기도형 ==================== -->
+  <div id="main-gd" class="panel panel-gd active">
+
+    <div class="sub-nav">
+      <button class="sub-btn active-gd" onclick="showSub('gd','build')">구축·제조AI</button>
+      <button class="sub-btn" onclick="showSub('gd','tourco')">견학공장 모집</button>
+      <button class="sub-btn" onclick="showSub('gd','tourgo')">견학 참가자</button>
+    </div>
+
+    <!-- 1. 구축 및 컨설팅·제조AI -->
+    <div id="sub-gd-build" class="sub-panel active">
+
+      <div class="section-header">스마트공장 구축 및 컨설팅·제조AI 지원</div>
+      <div class="section-desc">도내 중소·중견기업 제조 현장에 적합한 다양한 유형의 스마트공장 구축을 지원하여 기업의 제조경쟁력 제고</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📋</span> 사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">사업기간</span>
+          <span class="info-value">당해연도 1월 ~ 12월</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원유형</span>
+          <span class="info-value">1. 스마트공장 구축 지원<br>2. 스마트공장 현장지도</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원비율</span>
+          <span class="info-value">총 사업비의 <strong>70%</strong> 이내</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">신청방법</span>
+          <span class="info-value">smart-factory.kr 온라인 접수</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">💰</span> 유형별 지원 내용</div>
+        <div class="type-grid">
+
+          <div class="type-card">
+            <div class="type-name">유형1. 스마트공장 '기초' 구축</div>
+            <div class="type-sub">경기도 25개 시 소재 중소제조기업 대상<br>자동화 장비·센서·비전 시스템, MES·POP·ERP 등 솔루션</div>
+            <div class="type-meta">
+              <span class="type-tag tag-blue">최대 5,000만 원</span>
+              <span class="type-tag tag-gray">126개 기업 / 6개월</span>
+            </div>
+          </div>
+
+          <div class="type-card">
+            <div class="type-name">유형2-1. ESG특화 스마트공장 구축</div>
+            <div class="type-sub">에너지·탄소중립(E), 안전(S), 보안(G) 분야<br>에너지 효율화, 안전센서·비전 감지, 보안체계 구축</div>
+            <div class="type-meta">
+              <span class="type-tag tag-blue">최대 8,000만 원</span>
+              <span class="type-tag tag-gray">5개 기업 / 6개월</span>
+            </div>
+          </div>
+
+          <div class="type-card">
+            <div class="type-name">유형2-2. 제조AI 첫걸음</div>
+            <div class="type-sub">AI로 인지·분석·예측·제어하여 제조·안전·에너지 등 전 분야의 AI전환(AX) 지원<br>제조AI, 안전AI, 에너지/탄소중립AI 솔루션</div>
+            <div class="type-meta">
+              <span class="type-tag tag-blue">최대 1억 원</span>
+              <span class="type-tag tag-gray">5개 기업 / 6개월</span>
+            </div>
+          </div>
+
+          <div class="type-card">
+            <div class="type-name">유형2-3. 공동참여형 스마트공장 구축</div>
+            <div class="type-sub">동일(또는 유사) 공정 보유 도입기업 4개사 + 공급기업 1개사 컨소시엄 구성<br>저비용·고효율 제조 디지털·AI 전환 확산</div>
+            <div class="type-meta">
+              <span class="type-tag tag-blue">컨소시엄당 최대 1.2억 원</span>
+              <span class="type-tag tag-gray">2개 컨소시엄 / 6개월</span>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">🔧</span> 스마트공장 현장지도</div>
+        <div class="section-desc" style="margin-bottom:8px;">구축 선정·완료 기업 의무 지원, <strong>전액 무료</strong></div>
+        <div class="support-item">
+          <strong>과제 진행중 현장지도</strong>
+          <p>대상: '유형1'과 '유형2' 선정기업<br>내용: 적정 스마트공장 구현, 과제 진행사항 점검, 공급사 계약관리, 납품검수, 구축과정 중 애로해결 지원</p>
+        </div>
+        <div class="support-item">
+          <strong>사후활용점검 (차년도 지원)</strong>
+          <p>대상: '유형1'과 '유형2' 완료기업 (2027년 예정)<br>내용: 구축 시스템 활용 점검 및 안정화</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📌</span> 지원 절차</div>
+        <div class="steps">
+          <div class="step"><div class="step-title">신청·접수</div><div class="step-desc">smart-factory.kr 사업계획서 온라인 접수</div></div>
+          <div class="step"><div class="step-title">요건검토 및 서면평가</div></div>
+          <div class="step"><div class="step-title">대면평가 및 과제선정</div></div>
+          <div class="step"><div class="step-title">현장확인, 원가감리</div></div>
+          <div class="step"><div class="step-title">협약체결 및 사업착수</div></div>
+        </div>
+        <div class="divider" style="margin-top:16px;"></div>
+        <div class="steps">
+          <div class="step"><div class="step-title">현장지도 진행</div></div>
+          <div class="step"><div class="step-title">전담인력 교육</div></div>
+          <div class="step"><div class="step-title">중간점검</div></div>
+          <div class="step"><div class="step-title">최종점검 및 완료평가</div></div>
+          <div class="step"><div class="step-title">최종완료 및 정산</div></div>
+        </div>
+      </div>
+
+      <div class="card cta-card">
+        <p>문의처 | 경기테크노파크 경기스마트제조혁신센터<br>
+        ☎ 031-500-3648, 3655, 3656, 3679<br>
+        ✉ seoym@gtp.or.kr, bjh@gtp.or.kr</p>
+        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gd">온라인 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 2. 견학공장 -->
+    <div id="sub-gd-tourco" class="sub-panel">
+
+      <!-- ===== 견학공장 운영기업 모집 ===== -->
+      <div class="section-header">디지털전환 견학공장 운영기업 모집</div>
+      <div class="section-desc">도 내 중소·중견기업이 견학 및 벤치마킹할 수 있는 모범사례 공장을 운영할 기업을 모집하여, 스마트공장 고도화 방향을 제시</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📋</span> 사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">지원대상</span>
+          <span class="info-value">경기도 소재<br>기업제조혁신역량 <strong>Level 2 이상</strong><br>중소·중견 제조기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원규모</span>
+          <span class="info-value"><strong>3개사</strong> 선정<br>(남부 2개사 / 북부 1개사)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원금액</span>
+          <span class="info-value">기업당 <strong class="amount amount-gd">최대 2,000만 원</strong><br>(총 사업비의 90% 이내)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">신청방법</span>
+          <span class="info-value">경기테크노파크<br>사업관리시스템 온라인 신청<br>(pms.gtp.or.kr)</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">🔧</span> 지원 내용</div>
+        <div class="support-item">
+          <strong>설비·시스템 유지보수 및 기능개선</strong>
+          <p>공장 설비·시스템 유지보수 및 기능개선 비용 지원</p>
+        </div>
+        <div class="support-item">
+          <strong>홍보자료 제작</strong>
+          <p>영상, 전자카달로그 등 홍보자료 제작 지원</p>
+        </div>
+        <div class="support-item">
+          <strong>견학 운영 기자재 및 다과</strong>
+          <p>무선마이크 및 견학자용 이어폰(10대 이상) 필수 확보</p>
+        </div>
+        <div class="support-item">
+          <strong>견학 담당자 인건비</strong>
+          <p>총 사업비의 10% 이내, 현물로만 편성</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">✅</span> 신청 조건</div>
+        <div class="support-item">
+          <p>· 스마트공장 수준확인서 제출 필수<br>
+          · 당해연도 견학프로그램 <strong>5회 이상</strong> 운영 필수<br>
+          · 일일 최소 <strong>10명 이상</strong> 견학 가능한 기업<br>
+          · 이행보증보험증권 발급 가능 기업</p>
+        </div>
+        <div class="note-box" style="margin-top:6px;">
+          ※ 지원 제외: 휴·폐업 기업, 국세·지방세 체납 기업, 유흥·향락업, 숙박·음식점, 불건전 오락용품 제조업
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📌</span> 추진 절차</div>
+        <div class="steps">
+          <div class="step"><div class="step-title">사업공고</div><div class="step-desc">2월</div></div>
+          <div class="step"><div class="step-title">신청·접수</div><div class="step-desc">2 ~ 3월</div></div>
+          <div class="step"><div class="step-title">요건검토 및 선정평가</div><div class="step-desc">4월 / 현장 대면 발표 + 현장 확인</div></div>
+          <div class="step"><div class="step-title">선정기업 협약체결 및 지원금 지급</div><div class="step-desc">4 ~ 5월</div></div>
+          <div class="step"><div class="step-title">공장견학 진행</div><div class="step-desc">5 ~ 11월</div></div>
+          <div class="step"><div class="step-title">결과보고 및 사업비 정산</div><div class="step-desc">12월</div></div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📊</span> 평가 기준 (100점)</div>
+        <table class="tour-table">
+          <thead>
+            <tr><th>항목</th><th>평가기준</th><th>배점</th></tr>
+          </thead>
+          <tbody>
+            <tr><td>스마트공장<br>구축 현황</td><td style="text-align:left;font-size:10.5px;">견학 수요에 적합한 구축 수준<br>주요 설비·솔루션 구축 정도</td><td>30</td></tr>
+            <tr><td>견학 프로그램<br>구성·운영</td><td style="text-align:left;font-size:10.5px;">구성 체계성, 발전 가능성<br>교육 효과·전달 노력</td><td>30</td></tr>
+            <tr><td>견학<br>사업계획</td><td style="text-align:left;font-size:10.5px;">사업비 사용 계획 적정성<br>운영 실현 가능성, 인력 배치</td><td>20</td></tr>
+            <tr><td>안전 및<br>환경 관리</td><td style="text-align:left;font-size:10.5px;">공장 환경 조성 수준<br>비상 대응, 안전장비 점검</td><td>20</td></tr>
+          </tbody>
+        </table>
+        <div class="note-box" style="margin-top:8px;">
+          <strong>가점 (최대 5점)</strong><br>
+          · Level 3 이상 (+3점)<br>
+          · 최근 2년간 견학 10건 이상 실적 (+3점)<br>
+          · 경기도 착한기업 인증 (+1점)<br>
+          · 경기도형 납품대금 연동제 우수기업 (+3점)
+        </div>
+      </div>
+
+      <div class="card cta-card">
+        <p>문의처 | 경기테크노파크 경기스마트제조혁신센터<br>
+        ☎ 031-500-3656<br>
+        ✉ happy7979@gtp.or.kr</p>
+        <a href="https://pms.gtp.or.kr" target="_blank" class="cta-btn cta-btn-gd">운영기업 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 3. 견학 참가자 모집 -->
+    <div id="sub-gd-tourgo" class="sub-panel">
+
+      <div class="section-header">디지털전환 견학공장 견학 참가자 모집</div>
+      <div class="section-desc">스마트공장 도입 및 고도화를 희망하는 기업을 대상으로 모범사례 공장을 소개하고 현장 견학 및 벤치마킹 기회 제공</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📋</span> 참가 안내</div>
+        <div class="info-row">
+          <span class="info-label">사업기간</span>
+          <span class="info-value">당해연도 1월 ~ 12월</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">참가대상</span>
+          <span class="info-value">도 내 제조기업 임직원 등<br>제작자 및 도민</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">선발방식</span>
+          <span class="info-value">우선순위에 따라 선착순</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">🏭</span> 견학공장 현황</div>
+        <table class="tour-table">
+          <thead>
+            <tr><th>기업명</th><th>규모</th><th>수준</th><th>소재지</th></tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>(주)유창하이텍<br>화성공장</td>
+              <td>중소</td>
+              <td>중간2<br>(Level 2)</td>
+              <td style="text-align:left;font-size:10.5px;">화성시 만세구<br>장안면 수정로 80-43</td>
+            </tr>
+            <tr>
+              <td>(주)스피드랙</td>
+              <td>중소</td>
+              <td>중간1<br>(Level 2)</td>
+              <td style="text-align:left;font-size:10.5px;">김포시 대곶면<br>대곶북로 367-26</td>
+            </tr>
+            <tr>
+              <td>디마요팩(주)</td>
+              <td>중소</td>
+              <td>중간1<br>(Level 2)</td>
+              <td style="text-align:left;font-size:10.5px;">파주시<br>고봉로 721-65</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gd">📅</span> 견학 일정</div>
+        <div class="info-row">
+          <span class="info-label">1차</span>
+          <span class="info-value">5 ~ 8월, 총 13회 운영</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">2차</span>
+          <span class="info-value">10 ~ 11월, 총 7회 운영</span>
+        </div>
+      </div>
+
+      <div class="card cta-card">
+        <p>문의처 | 경기테크노파크 경기스마트제조혁신센터<br>
+        ☎ 031-500-3657<br>
+        ✉ sykim@gtp.or.kr</p>
+      </div>
+    </div>
+
+  </div>
+
+  <!-- ==================== 정부형 (중기부) ==================== -->
+  <div id="main-gov" class="panel panel-gov">
+
+    <div class="sub-nav">
+      <button class="sub-btn active-gov" onclick="showSub('gov','build')">정부형 구축</button>
+      <button class="sub-btn" onclick="showSub('gov','ai')">제조AI특화</button>
+      <button class="sub-btn" onclick="showSub('gov','mentor')">제조DX멘토단</button>
+    </div>
+
+    <!-- 1. 정부형 스마트공장 구축 -->
+    <div id="sub-gov-build" class="sub-panel active">
+
+      <div class="section-header">정부형 스마트공장 구축사업</div>
+      <div class="section-desc">중소·중견기업 제조 현장에 적합한 고도화 수준의 스마트공장을 지원하여 기업의 제조혁신 경쟁력 향상 도모</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">📋</span> 사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">주관</span>
+          <span class="info-value">중소벤처기업부</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">수행기관</span>
+          <span class="info-value">스마트제조혁신추진단</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원대상</span>
+          <span class="info-value">국내 중소·중견기업 중<br>스마트공장 구축이 필요한 제조기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원내용</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">ICT로 제품의 기획-설계-제조-판매 과정을 통합하여 제조 공정을 최적화하는 스마트공장 구축지원<br><br>제품설계·생산공정 개선 등을 위한 솔루션 구축 및 자동화 장비·제어기·센서 등 구축 지원</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원비율</span>
+          <span class="info-value"><strong>50%</strong> 이내</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">💰</span> 유형별 지원 내용</div>
+        <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">고도화</div>
+            <div class="type-sub">구축목표수준: 중간1 이상</div>
+            <div class="type-meta">
+              <span class="type-tag tag-green">최대 2억 원</span>
+              <span class="type-tag tag-gray">최대 9개월</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">고도화 (동일수준)</div>
+            <div class="type-sub">목표설정 필수</div>
+            <div class="type-meta">
+              <span class="type-tag tag-green">최대 0.5억 원</span>
+              <span class="type-tag tag-gray">최대 9개월</span>
+            </div>
+          </div>
+        </div>
+        <div class="note-box">
+          ※ 구축목표수준은 KS X 9001-1(스마트공장 기본개념과 구조) 표준 기준
+        </div>
+      </div>
+
+      <div class="card cta-card">
+        <p>지역별 문의처 | 스마트제조혁신센터<br><br>
+        경기 남부 ☎ 031-500-3100<br>
+        경기 북부 ☎ 031-539-5140</p>
+        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 2. 제조AI특화 -->
+    <div id="sub-gov-ai" class="sub-panel">
+
+      <div class="section-header">제조AI특화 스마트공장 구축지원사업</div>
+      <div class="section-desc">제조현장의 업종과 공정에 특화된 맞춤형 AI 지원을 통한 중소 제조기업의 자율제조기반 마련으로 제조업 경쟁력 강화 도모</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">📋</span> 사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">지원대상</span>
+          <span class="info-value">AI 스마트공장 구축을 희망하는<br>국내 중소·중견 제조기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원내용</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">AI에이전트, 온디바이스AI 등 AI기술을 활용하여 공정최적화, 예측유지보수 등을 지원하는 AI공장 구축</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원비율</span>
+          <span class="info-value"><strong>50%</strong> 이내</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">💰</span> 유형별 지원 내용</div>
+        <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">AI공장 구축</div>
+            <div class="type-sub">구축목표수준: 중간1 이상 목표설정<br>기존 수준이상 달성 필수 (동일수준 가능)</div>
+            <div class="type-meta">
+              <span class="type-tag tag-green">최대 2억 원</span>
+              <span class="type-tag tag-gray">최대 9개월</span>
+            </div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">데이터 수집·검증</div>
+            <div class="type-sub">목표수준 없음<br>기존 수준이상 달성 필수 (동일수준 가능)</div>
+            <div class="type-meta">
+              <span class="type-tag tag-green">최대 0.5억 원</span>
+              <span class="type-tag tag-gray">최대 6개월</span>
+            </div>
+          </div>
+        </div>
+        <div class="note-box">
+          ※ 자율형공장, 대중소상생형(AI트랙), '25년 제조AI특화 사업과는 동시수행 불가<br>
+          ※ 구축목표수준은 KS X 9001-1 표준 기준 참고<br>
+          ※ "고도" 단계 정의: 단위 공정이 아닌 "공장 전반"의 완전자동화 수준
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">🌐</span> 관련 웹사이트</div>
+        <div class="info-row">
+          <span class="info-label">사업관리</span>
+          <span class="info-value"><a href="https://smart-factory.kr" target="_blank" style="color:var(--accent-gov);">smart-factory.kr</a></span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">카카오톡</span>
+          <span class="info-value">플러스 친구 (1357 중소기업통합콜센터)</span>
+        </div>
+      </div>
+
+      <div class="card cta-card">
+        <p>지역별 문의처 | 스마트제조혁신센터<br><br>
+        경기 남부 ☎ 031-500-3100<br>
+        경기 북부 ☎ 031-539-5140<br><br>
+        ※ 그 밖의 지역은 스마트공장 사업관리시스템 참조</p>
+        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 3. 제조DX멘토단 -->
+    <div id="sub-gov-mentor" class="sub-panel">
+
+      <div class="section-header">제조DX멘토단 활용지원사업</div>
+      <div class="section-desc">제조혁신 전문가(제조DX멘토단)를 활용하여 스마트공장 기획·구축 지도 및 운영 애로사항 해결지원</div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">📋</span> 사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">지원대상</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">· 스마트공장 구축 희망기업<br>· 정부·지자체 지원을 통한 스마트공장 구축기업 및 자체역량으로 스마트공장 수준확인서 보유 기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원내용</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">중소기업과 DX멘토단을 <strong>1:1 매칭</strong>하여 사업기획부터 사후관리까지 전주기 밀착 지원</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="icon icon-gov">🔧</span> 사후 관리 지원</div>
+        <div class="support-item">
+          <strong>신속한 AS</strong>
+          <p>스마트공장 운영과 관련된 HW(부품 등) 및 SW(솔루션 등)의 고장·결함에 대한 신속한 AS</p>
+        </div>
+        <div class="support-item">
+          <strong>HW 및 SW 업그레이드</strong>
+          <p>스마트공장 도입 후 발생되는 생산품목 변경, 공정 개선, 생산 효율성 개선, 보안강화 등에 필요한 업그레이드 지원</p>
+        </div>
+        <div class="support-item">
+          <strong>SW 업그레이드 기능추가</strong>
+          <p>기 구축 스마트공장의 솔루션 버전업, 모듈 추가, 기능추가 지원</p>
+        </div>
+        <div class="support-item">
+          <strong>HW 고장·결함 수리·개조</strong>
+          <p>기 구축 스마트공장 구축범위에 해당하는 HW 중 부품의 고장·결함 수리, 기능 개조 지원<br><span style="font-size:11px;color:#B8860B;">※ 부품이 아닌 단독 설비 개체는 지원 불가</span></p>
+        </div>
+      </div>
+
+      <div class="card cta-card">
+        <p>지역별 문의처 | 스마트제조혁신센터<br><br>
+        경기 남부 ☎ 031-500-3100<br>
+        경기 북부 ☎ 031-539-5140</p>
+      </div>
+    </div>
+
+  </div>
+
+</div>
+
+<div class="footer">
+  페이지 오류 및 수정 문의<br>
+  경기테크노파크 경기스마트제조혁신센터<br>
+  ☎ 031-500-3655<br><br>
+  본 페이지는 참고용이며, 정확한 사업 내용은<br>
+  각 사업별 공고문을 확인해 주세요.
+</div>
+
+<script>
+function showMain(type) {
+  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-gd','active-gov'));
+
+  document.getElementById('main-' + type).classList.add('active');
+  const btns = document.querySelectorAll('.tab-btn');
+  if (type === 'gd') { btns[0].classList.add('active-gd'); }
+  else { btns[1].classList.add('active-gov'); }
+
+  // Reset sub-panels to first
+  const panel = document.getElementById('main-' + type);
+  const subBtns = panel.querySelectorAll('.sub-btn');
+  const subPanels = panel.querySelectorAll('.sub-panel');
+  subBtns.forEach(b => b.classList.remove('active-gd','active-gov'));
+  subPanels.forEach(p => p.classList.remove('active'));
+  if (subBtns[0]) subBtns[0].classList.add(type === 'gd' ? 'active-gd' : 'active-gov');
+  if (subPanels[0]) subPanels[0].classList.add('active');
+}
+
+function showSub(main, sub) {
+  const panel = document.getElementById('main-' + main);
+  const cls = main === 'gd' ? 'active-gd' : 'active-gov';
+  panel.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active-gd','active-gov'));
+  panel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+
+  // Find the clicked button
+  const allSubBtns = panel.querySelectorAll('.sub-btn');
+  const subIds = main === 'gd' ? ['build','tourco','tourgo'] : ['build','ai','mentor'];
+  const idx = subIds.indexOf(sub);
+  if (idx >= 0 && allSubBtns[idx]) allSubBtns[idx].classList.add(cls);
+
+  document.getElementById('sub-' + main + '-' + sub).classList.add('active');
+}
+</script>
+
+</body>
+</html>
