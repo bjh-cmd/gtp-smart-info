@@ -114,8 +114,9 @@
   .tab-btn.active-gd { background: var(--gtp-blue); color: #fff; border-color: var(--gtp-blue); }
   .tab-btn.active-gov { background: var(--gtp-green); color: #fff; border-color: var(--gtp-green); }
 
-  .panel { display: none; }
-  .panel.active { display: block; }
+  /* === Animation 2: Tab transition fade === */
+  .panel { display: none; opacity: 0; transition: opacity 0.3s ease; }
+  .panel.active { display: block; opacity: 1; }
 
   /* Sub nav */
   .sub-nav {
@@ -148,8 +149,8 @@
   .sub-btn.active-gd { color: var(--gtp-blue); border-bottom-color: var(--gtp-blue); font-weight: 800; }
   .sub-btn.active-gov { color: var(--gtp-green); border-bottom-color: var(--gtp-green); font-weight: 800; }
 
-  .sub-panel { display: none; }
-  .sub-panel.active { display: block; }
+  .sub-panel { display: none; opacity: 0; transition: opacity 0.3s ease; }
+  .sub-panel.active { display: block; opacity: 1; }
 
   /* Cards */
   .card {
@@ -376,6 +377,28 @@
     line-height: 1.45;
   }
 
+  /* === Animation 1: Scroll fade-in === */
+  .card, .type-card {
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+  }
+  .card.visible, .type-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+  }
+
+  /* === Animation 3: Accordion slide === */
+  .toggle-detail {
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height 0.4s ease;
+    margin-top: 10px;
+  }
+  .toggle-detail.open {
+    max-height: 600px;
+  }
+
   /* Toggle detail */
   .toggle-btn {
     display: block;
@@ -393,9 +416,6 @@
     transition: background 0.15s;
   }
   .toggle-btn:hover { background: var(--tag-gd); }
-  .toggle-detail {
-    margin-top: 10px;
-  }
   .city-table {
     width: 100%;
     border-collapse: collapse;
@@ -484,7 +504,7 @@
               <span class="type-tag tag-gray">126개 기업 / 6개월</span>
             </div>
             <button class="toggle-btn" onclick="toggleDetail(this)">25개 시·군 지원 상세 보기 ▾</button>
-            <div class="toggle-detail" style="display:none;">
+            <div class="toggle-detail">
               <table class="city-table">
                 <tr><td>화성</td><td class="city-num">31</td><td>안산</td><td class="city-num">18</td><td>시흥</td><td class="city-num">8</td></tr>
                 <tr><td>이천</td><td class="city-num">8</td><td>파주</td><td class="city-num">8</td><td>김포</td><td class="city-num">7</td></tr>
@@ -943,50 +963,96 @@
 </div>
 
 <script>
+/* === Animation 2: Tab transition fade helper === */
+function fadeIn(el) {
+  el.style.display = 'block';
+  el.offsetHeight; // force reflow
+  el.style.opacity = '1';
+}
+function fadeOut(el) {
+  el.style.opacity = '0';
+  el.style.display = 'none';
+}
+
 function showMain(type) {
-  document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+  document.querySelectorAll('.panel').forEach(p => { fadeOut(p); p.classList.remove('active'); });
   document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active-gd','active-gov'));
 
-  document.getElementById('main-' + type).classList.add('active');
+  const target = document.getElementById('main-' + type);
+  target.classList.add('active');
+  fadeIn(target);
+
   const btns = document.querySelectorAll('.tab-btn');
   if (type === 'gd') { btns[0].classList.add('active-gd'); }
   else { btns[1].classList.add('active-gov'); }
 
   // Reset sub-panels to first
-  const panel = document.getElementById('main-' + type);
-  const subBtns = panel.querySelectorAll('.sub-btn');
-  const subPanels = panel.querySelectorAll('.sub-panel');
+  const subBtns = target.querySelectorAll('.sub-btn');
+  const subPanels = target.querySelectorAll('.sub-panel');
   subBtns.forEach(b => b.classList.remove('active-gd','active-gov'));
-  subPanels.forEach(p => p.classList.remove('active'));
+  subPanels.forEach(p => { fadeOut(p); p.classList.remove('active'); });
   if (subBtns[0]) subBtns[0].classList.add(type === 'gd' ? 'active-gd' : 'active-gov');
-  if (subPanels[0]) subPanels[0].classList.add('active');
+  if (subPanels[0]) { subPanels[0].classList.add('active'); fadeIn(subPanels[0]); }
+
+  // Re-observe new cards for scroll animation
+  observeCards();
 }
 
 function showSub(main, sub) {
   const panel = document.getElementById('main-' + main);
   const cls = main === 'gd' ? 'active-gd' : 'active-gov';
   panel.querySelectorAll('.sub-btn').forEach(b => b.classList.remove('active-gd','active-gov'));
-  panel.querySelectorAll('.sub-panel').forEach(p => p.classList.remove('active'));
+  panel.querySelectorAll('.sub-panel').forEach(p => { fadeOut(p); p.classList.remove('active'); });
 
-  // Find the clicked button
   const allSubBtns = panel.querySelectorAll('.sub-btn');
   const subIds = main === 'gd' ? ['build','tourco','tourgo'] : ['build','ai','mentor'];
   const idx = subIds.indexOf(sub);
   if (idx >= 0 && allSubBtns[idx]) allSubBtns[idx].classList.add(cls);
 
-  document.getElementById('sub-' + main + '-' + sub).classList.add('active');
+  const target = document.getElementById('sub-' + main + '-' + sub);
+  target.classList.add('active');
+  fadeIn(target);
+
+  // Re-observe new cards for scroll animation
+  observeCards();
 }
 
+/* === Animation 3: Accordion slide === */
 function toggleDetail(btn) {
   var detail = btn.nextElementSibling;
-  if (detail.style.display === 'none') {
-    detail.style.display = 'block';
-    btn.textContent = '25개 시·군 지원 상세 닫기 ▴';
-  } else {
-    detail.style.display = 'none';
+  if (detail.classList.contains('open')) {
+    detail.classList.remove('open');
     btn.textContent = '25개 시·군 지원 상세 보기 ▾';
+  } else {
+    detail.classList.add('open');
+    btn.textContent = '25개 시·군 지원 상세 닫기 ▴';
   }
 }
+
+/* === Animation 1: Scroll fade-in with IntersectionObserver === */
+var scrollObserver = null;
+function observeCards() {
+  if (scrollObserver) scrollObserver.disconnect();
+  scrollObserver = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.classList.add('visible');
+        scrollObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.1 });
+
+  document.querySelectorAll('.card, .type-card').forEach(function(el) {
+    if (!el.classList.contains('visible')) {
+      scrollObserver.observe(el);
+    }
+  });
+}
+
+// Initial setup
+document.addEventListener('DOMContentLoaded', function() {
+  observeCards();
+});
 </script>
 
 </body>
