@@ -598,6 +598,8 @@
   .sc-base-title { margin: 14px 0 8px; font-size: 11.5px; font-weight: 700; color: var(--sub); text-align: center; }
   .sc-base { display: grid; grid-template-columns: repeat(3, 1fr); gap: 8px; }
   .sc-b { text-align: center; border: 1px solid var(--border); border-radius: 10px; padding: 11px 4px; background: linear-gradient(180deg,#fff,#F4F8FB); opacity: 0; transform: scale(.88); transition: opacity .4s ease-out, transform .45s cubic-bezier(.3,1.5,.5,1); }
+  .sc-b i { display: block; font-style: normal; font-size: 20px; line-height: 1.2; margin-bottom: 2px; }
+  .sc-ico { font-size: 14px; padding: 3px 7px !important; }
   .sc-b b { display: block; font-size: 13px; font-weight: 800; color: var(--gtp-blue); letter-spacing: .3px; }
   .sc-b small { font-size: 10.5px; color: var(--sub); }
   .card.visible .sc-layer { opacity: 1; transform: none; }
@@ -610,6 +612,15 @@
   .st-tabs { display: flex; gap: 4px; margin-bottom: 10px; }
   .st-tab { flex: 1; border: 1px solid var(--border); background: #F6F7F9; border-radius: 9px; padding: 8px 0 7px; font-size: 11.5px; font-weight: 700; font-family: inherit; color: #6B7280; cursor: pointer; line-height: 1.25; transition: background-color .25s ease, color .25s ease, transform .25s ease, border-color .25s ease; -webkit-tap-highlight-color: transparent; }
   .st-tab.on { color: #fff; border-color: transparent; transform: translateY(-2px); box-shadow: 0 4px 10px rgba(31,138,138,.22); }
+  .st-hint { display: flex; align-items: center; justify-content: center; gap: 6px; font-size: 11.5px; font-weight: 600; color: var(--gtp-blue); background: #EEF5FA; border-radius: 9px; padding: 7px 0; margin-bottom: 8px; transition: opacity .4s ease, max-height .4s ease, margin .4s ease, padding .4s ease; max-height: 40px; overflow: hidden; }
+  .st-hint.done { opacity: 0; max-height: 0; margin: 0; padding: 0; }
+  .st-finger { display: inline-block; animation: stFinger 1.2s ease-in-out infinite; }
+  @keyframes stFinger { 0%,100% { transform: translate(0,0); } 50% { transform: translate(6px,-4px); } }
+  .st-tabs.hint .st-tab:not(.on) { animation: stHint 2.4s ease-in-out infinite; }
+  .st-tabs.hint .st-tab:nth-child(1) { animation-delay: 0s; } .st-tabs.hint .st-tab:nth-child(2) { animation-delay: .3s; }
+  .st-tabs.hint .st-tab:nth-child(3) { animation-delay: .6s; } .st-tabs.hint .st-tab:nth-child(4) { animation-delay: .9s; }
+  .st-tabs.hint .st-tab:nth-child(5) { animation-delay: 1.2s; }
+  @keyframes stHint { 0%,60%,100% { transform: none; box-shadow: none; border-color: var(--border); } 25% { transform: translateY(-3px); box-shadow: 0 4px 10px rgba(27,110,166,.2); border-color: var(--gtp-blue); } }
   .st-head { display: flex; align-items: center; justify-content: space-between; gap: 8px; margin-bottom: 6px; }
   .st-name { font-size: 14px; font-weight: 800; }
   .st-sub { font-size: 11px; color: var(--sub); font-weight: 600; }
@@ -617,7 +628,7 @@
   .st-prog i { display: block; height: 100%; border-radius: 3px; width: 0; transition: width .55s cubic-bezier(.3,.8,.3,1); }
   .st-row { display: flex; gap: 10px; padding: 9px 0; border-bottom: 1px solid var(--border); font-size: 12px; line-height: 1.5; opacity: 0; transform: translateX(10px); animation: stIn .4s ease-out forwards; }
   .st-row:last-child { border-bottom: none; }
-  .st-row span { flex: 0 0 74px; color: var(--sub); font-weight: 600; }
+  .st-row span { white-space: nowrap; flex: 0 0 106px; color: var(--sub); font-weight: 600; }
   .st-row b { font-weight: 700; word-break: keep-all; }
   @keyframes stIn { to { opacity: 1; transform: none; } }
 
@@ -787,31 +798,32 @@
       <div class="sc-stack">
         <div class="sc-layer sc-l1">
           <div class="sc-label"><b>응용시스템</b><small>S/W</small></div>
-          <div class="sc-chips"><span>공급사슬관리 최적화</span><span>공장운영</span><span>기업운영</span><span>제품·공정개발</span><span>협력사</span></div>
+          <div class="sc-chips"><span>🔗 공급사슬관리 최적화</span><span>🏭 공장운영</span><span>💼 기업운영</span><span>📐 제품·공정개발</span><span>🤝 협력사</span></div>
         </div>
         <div class="sc-link"><span class="sc-arrow">↕</span><em>설계정보 · 제어명령 · 설비 가동정보</em></div>
         <div class="sc-layer sc-l2">
           <div class="sc-label"><b>제어 자동화</b><small>컨트롤러·센서</small></div>
-          <div class="sc-chips"><span>공정제어(PLC)</span><span>인터페이스(HMI)</span><span>컴퓨터수치제어(CNC)</span><span>산업용 센서</span></div>
+          <div class="sc-chips"><span>🎛️ 공정제어(PLC)</span><span>🖥️ 인터페이스(HMI)</span><span>⚙️ 컴퓨터수치제어(CNC)</span><span>📡 산업용 센서</span></div>
         </div>
         <div class="sc-link"><span class="sc-arrow">↕</span><em>설비제어 · 상태 · 가동 데이터</em></div>
         <div class="sc-layer sc-l3">
           <div class="sc-label"><b>현장 자동화</b><small>로봇·생산설비</small></div>
-          <div class="sc-chips"><span>로봇</span><span>생산설비</span></div>
+          <div class="sc-chips"><span>🦾 로봇</span><span>🏭 생산설비</span><span class="sc-ico" title="자동화 라인">🔧</span><span class="sc-ico" title="제어 화면">🖥️</span></div>
         </div>
       </div>
       <div class="sc-base-title">전 계층을 뒷받침하는 기반 기술</div>
       <div class="sc-base">
-        <div class="sc-b"><b>CLOUD</b><small>클라우드 플랫폼</small></div>
-        <div class="sc-b"><b>CPPS</b><small>가상물리생산</small></div>
-        <div class="sc-b"><b>AI</b><small>지능형 기술</small></div>
+        <div class="sc-b"><i>☁️</i><b>CLOUD</b><small>클라우드 플랫폼</small></div>
+        <div class="sc-b"><i>🔄</i><b>CPPS</b><small>가상물리생산</small></div>
+        <div class="sc-b"><i>🧠</i><b>AI</b><small>지능형 기술</small></div>
       </div>
     </div>
 
     <div class="card" id="step-card">
       <div class="card-title"><span class="bar bar-n"></span>단계별로 보는 스마트공장</div>
       <p class="home-note" style="margin-top:0;margin-bottom:12px;">처음부터 고도화를 걱정할 필요는 없습니다. 기업의 여건에 맞춰 <strong>단계적으로</strong> 구축하고, 필요한 수준과 기능을 골라 집중하는 것이 중요합니다.</p>
-      <div class="st-tabs" id="stTabs"></div>
+      <div class="st-hint"><span class="st-finger">👆</span><span>단계를 눌러 보세요 <b>(총 5단계)</b></span></div>
+      <div class="st-tabs hint" id="stTabs"></div>
       <div class="st-panel" id="stPanel"></div>
       <div class="note-box">※ 기초 단계만으로도 실시간 생산실적 집계와 자재 이력관리(lot tracking)가 가능합니다.</div>
     </div>
@@ -1676,12 +1688,13 @@ function toggleDetail(btn) {
 
 /* === Home: 단계별 스마트공장 === */
 var ST_DATA = [
-  { n:'ICT 미적용', c:'#9AA3B0', sub:'수작업 중심', rows:[['현장자동화','수작업'],['공장운영','수작업'],['기업자원관리','수작업'],['제품개발','수작업'],['공급사슬관리','전화·이메일 협업']] },
-  { n:'기초', c:'#5E9CC8', sub:'실적 집계의 자동화', rows:[['현장자동화','실적집계 자동화'],['공장운영','실적집계 자동화'],['기업자원관리','공정물류 관리(POP)'],['제품개발','서버를 통한 기술·납기 관리'],['공급사슬관리','단일 모기업 의존']] },
-  { n:'중간1', c:'#4C97A8', sub:'설비 데이터의 자동 수집', rows:[['현장자동화','설비데이터 자동집계'],['공장운영','설비데이터 자동집계'],['기업자원관리','실시간 의사결정'],['제품개발','기술정보 생성 자동화와 협업'],['공급사슬관리','다품종 생산 협업']] },
-  { n:'중간2', c:'#3A9296', sub:'설비제어와 공정의 자동화', rows:[['현장자동화','설비제어 자동화'],['공장운영','설비제어 자동화'],['기업자원관리','실시간 공장제어'],['제품개발','시뮬레이션과 일관 프로세스 자동화'],['공급사슬관리','다품종 개발 협업']] },
-  { n:'고도화', c:'#1F8A8A', sub:'IoT/IoS 기반의 CPS화', rows:[['현장자동화','IoT/IoS화'],['공장운영','IoT/IoS(모듈)화, 빅데이터 기반의 진단 및 운영'],['기업자원관리','IoT/IoS(모듈)화, 빅데이터 기반의 진단 및 운영'],['제품개발','IoT/IoS(모듈)화, 빅데이터 기반의 진단 및 운영'],['공급사슬관리','인터넷 공간 상의 비즈니스 CPS 네트워크 협업']] }
+  { n:'ICT 미적용', e:'✍️', c:'#9AA3B0', sub:'수작업 중심', rows:[['현장자동화','수작업'],['공장운영','수작업'],['기업자원관리','수작업'],['제품개발','수작업'],['공급사슬관리','전화·이메일 협업']] },
+  { n:'기초', e:'🌱', c:'#5E9CC8', sub:'실적 집계의 자동화', rows:[['현장자동화','실적집계 자동화'],['공장운영','실적집계 자동화'],['기업자원관리','공정물류 관리(POP)'],['제품개발','서버를 통한 기술·납기 관리'],['공급사슬관리','단일 모기업 의존']] },
+  { n:'중간1', e:'🌿', c:'#4C97A8', sub:'설비 데이터의 자동 수집', rows:[['현장자동화','설비데이터 자동집계'],['공장운영','설비데이터 자동집계'],['기업자원관리','실시간 의사결정'],['제품개발','기술정보 생성 자동화와 협업'],['공급사슬관리','다품종 생산 협업']] },
+  { n:'중간2', e:'🌳', c:'#3A9296', sub:'설비제어와 공정의 자동화', rows:[['현장자동화','설비제어 자동화'],['공장운영','설비제어 자동화'],['기업자원관리','실시간 공장제어'],['제품개발','시뮬레이션과 일관 프로세스 자동화'],['공급사슬관리','다품종 개발 협업']] },
+  { n:'고도화', e:'🚀', c:'#1F8A8A', sub:'IoT/IoS 기반의 CPS화', rows:[['현장자동화','IoT/IoS화'],['공장운영','IoT/IoS(모듈)화, 빅데이터 기반의 진단 및 운영'],['기업자원관리','IoT/IoS(모듈)화, 빅데이터 기반의 진단 및 운영'],['제품개발','IoT/IoS(모듈)화, 빅데이터 기반의 진단 및 운영'],['공급사슬관리','인터넷 공간 상의 비즈니스 CPS 네트워크 협업']] }
 ];
+var ST_ICO = { '현장자동화':'🤖', '공장운영':'🏭', '기업자원관리':'💼', '제품개발':'📐', '공급사슬관리':'🔗' };
 function setStep(i) {
   var tabs = document.querySelectorAll('#stTabs .st-tab');
   tabs.forEach(function(t, k) {
@@ -1690,10 +1703,10 @@ function setStep(i) {
     t.style.background = on ? ST_DATA[k].c : '';
   });
   var d = ST_DATA[i], el = document.getElementById('stPanel');
-  var h = '<div class="st-head"><span class="st-name" style="color:' + d.c + '">' + d.n + '</span><span class="st-sub">' + d.sub + '</span></div>' +
+  var h = '<div class="st-head"><span class="st-name" style="color:' + d.c + '">' + d.e + ' ' + d.n + '</span><span class="st-sub">' + d.sub + '</span></div>' +
           '<div class="st-prog"><i style="background:' + d.c + '" data-w="' + ((i + 1) * 20) + '"></i></div>';
   d.rows.forEach(function(r, k) {
-    h += '<div class="st-row" style="animation-delay:' + (REDUCE ? 0 : (0.05 + k * 0.07)) + 's"><span>' + r[0] + '</span><b>' + r[1] + '</b></div>';
+    h += '<div class="st-row" style="animation-delay:' + (REDUCE ? 0 : (0.05 + k * 0.07)) + 's"><span>' + (ST_ICO[r[0]] || '') + ' ' + r[0] + '</span><b>' + r[1] + '</b></div>';
   });
   el.innerHTML = h;
   var bar = el.querySelector('.st-prog i');
@@ -1705,10 +1718,10 @@ function setStep(i) {
   ST_DATA.forEach(function(d, i) {
     var b = document.createElement('button');
     b.type = 'button'; b.className = 'st-tab'; b.innerHTML = d.n.replace(' ', '<br>');
-    b.addEventListener('click', function() { setStep(i); });
+    b.addEventListener('click', function() { box.classList.remove('hint'); var h = document.querySelector('.st-hint'); if (h) h.classList.add('done'); setStep(i); });
     box.appendChild(b);
   });
-  setStep(1);
+  setStep(0);
 })();
 
 /* === Animation 1: Scroll fade-in with IntersectionObserver === */
