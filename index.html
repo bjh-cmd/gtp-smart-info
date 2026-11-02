@@ -512,7 +512,7 @@
   .pick-chev { width: 20px; height: 20px; fill: none; stroke: #8A92A0; stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; transition: transform .35s ease; }
   .pick-head[aria-expanded="true"] .pick-chev { transform: rotate(180deg); }
   .pick-list { max-height: 0; overflow: hidden; transition: max-height .4s ease; }
-  .pick-list.open { max-height: 420px; }
+  .pick-list.open { max-height: 620px; }
   .pick-list .pick:first-child { border-top: 1px solid var(--border); }
 
   /* === Floating glass nav (iOS-style, slim) === */
@@ -626,6 +626,28 @@
     .card, .type-card, .comp, .stat-row, .flow > *, .lv, .lv-item { opacity: 1 !important; transform: none !important; }
     .flow-ict { clip-path: none !important; }
   }
+
+  /* === Group UI (sub-categories) === */
+  .group { margin-top: 16px; }
+  .card-title + .group { margin-top: 0; }
+  .group-head { display: flex; align-items: center; gap: 8px; margin: 0 2px 8px; font-size: 12px; font-weight: 800; }
+  .group-head::after { content: ""; flex: 1; height: 1px; background: var(--border); order: 3; }
+  .group-count { order: 2; font-size: 10.5px; font-weight: 600; color: var(--sub); background: #EEF0F3; padding: 2px 8px; border-radius: 10px; white-space: nowrap; }
+  .group-title { order: 1; color: var(--text); white-space: nowrap; }
+  .group-title::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 50%; margin-right: 6px; vertical-align: 1px; background: var(--gtp-blue); }
+  .panel-gov .group-title::before { background: var(--gtp-green); }
+  .panel-gov .group .type-card { border-left: 3px solid var(--gtp-green); }
+  .group + .note-box, .group ~ .note-box { margin-top: 14px; }
+  .group .steps { padding-left: 6px; }
+  .basis {
+    display: inline-block; font-size: 11px; font-weight: 600; color: var(--gtp-green);
+    background: var(--tag-gov); padding: 4px 10px; border-radius: 10px; margin: 2px 0 8px;
+  }
+  .panel-gov .sub-btn { padding: 10px 9px; font-size: 12.5px; }
+  .panel-gov .toggle-btn { color: var(--gtp-green); }
+  #gov-common .toggle-btn { margin-top: 0; }
+  #gov-common .toggle-detail { margin-top: 0; }
+  #gov-common .toggle-detail.open { margin-top: 10px; }
 </style>
 </head>
 <body>
@@ -654,10 +676,12 @@
       <svg class="pick-chev" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>
     </button>
     <div class="pick-list" id="pickList">
-      <button class="pick" onclick="goTo('gd','build')"><span class="pick-dot dot-gd"></span><span class="pick-text"><b>처음 스마트공장을 도입해요</b><small>경기도형 구축 · 최대 5,000만 원부터</small></span><span class="pick-arrow">›</span></button>
-      <button class="pick" onclick="goTo('gov','build')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>이미 구축했고 고도화하려 해요</b><small>정부형 구축 · 최대 2억 원</small></span><span class="pick-arrow">›</span></button>
-      <button class="pick" onclick="goTo('gov','ai')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>AI 공장 도입에 관심 있어요</b><small>정부형 제조AI특화 · 최대 2억 원</small></span><span class="pick-arrow">›</span></button>
-      <button class="pick" onclick="goTo('gov','mentor')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>전문가 멘토링·사후관리(AS)가 필요해요</b><small>정부형 제조DX멘토단</small></span><span class="pick-arrow">›</span></button>
+      <button class="pick" onclick="goTo('gd','build')"><span class="pick-dot dot-gd"></span><span class="pick-text"><b>처음 스마트공장을 도입해요</b><small>경기도형 구축 · 기초 최대 5,000만 원부터</small></span><span class="pick-arrow">›</span></button>
+      <button class="pick" onclick="goTo('gd','build')"><span class="pick-dot dot-gd"></span><span class="pick-text"><b>AI를 신규 도입해 보고 싶어요</b><small>경기도형 제조AI 첫걸음 · 최대 1억 원</small></span><span class="pick-arrow">›</span></button>
+      <button class="pick" onclick="goTo('gov','build')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>이미 구축했고 고도화하려 해요</b><small>정부형(중기부) 정부일반형 · 최대 2억 원</small></span><span class="pick-arrow">›</span></button>
+      <button class="pick" onclick="goTo('gov','ai')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>AI 고도화를 하고 싶어요</b><small>정부형(중기부) 제조AI특화 · 최대 2억 원</small></span><span class="pick-arrow">›</span></button>
+      <button class="pick" onclick="goTo('gov','auto')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>AI·디지털트윈 자율형공장을 구축하고 싶어요</b><small>정부형(중기부) 자율형공장 · 최대 6억 원 (2년)</small></span><span class="pick-arrow">›</span></button>
+      <button class="pick" onclick="goTo('gov','mentor')"><span class="pick-dot dot-gov"></span><span class="pick-text"><b>전문가 멘토링·사후관리(AS)가 필요해요</b><small>정부형(중기부) 제조DX멘토단</small></span><span class="pick-arrow">›</span></button>
     </div>
   </div>
 
@@ -699,7 +723,7 @@
         <div class="lv-item"><span class="lv-tag lv-tag-gd">기초</span><p>생산정보의 디지털화 단계입니다. 실시간 생산실적 집계와 자재 이력관리가 가능합니다.</p></div>
         <div class="lv-item"><span class="lv-tag lv-tag-gov">고도화</span><p>생산 데이터를 실시간으로 수집·분석·제어하고, 데이터 기반으로 공장을 운영하는 단계입니다.</p></div>
       </div>
-      <div class="note-box">※ 구축 수준은 KS X 9001-1(스마트공장 기본개념과 구조) 표준을 기준으로 합니다.<br>※ 경기도형 '유형1'은 기초 구축, 정부형은 고도화 구축을 지원합니다.</div>
+      <div class="note-box">※ 구축 수준은 KS X 9001-1(스마트공장 기본개념과 구조) 표준을 기준으로 합니다.<br>※ 경기도형 '유형1'은 기초 구축, 정부일반형은 고도화 구축을 지원합니다.</div>
     </div>
 
   </div>
@@ -1028,21 +1052,24 @@
   <!-- ==================== 정부형 (중기부) ==================== -->
   <div id="main-gov" class="panel panel-gov">
 
+    <div class="basis">2027년 스마트 제조혁신 지원사업 통합공고(2026.10.30) 기준</div>
+
     <div class="sub-nav">
-      <button class="sub-btn active-gov" onclick="showSub('gov','build')">정부형 구축</button>
+      <button class="sub-btn active-gov" onclick="showSub('gov','build')">정부일반형</button>
       <button class="sub-btn" onclick="showSub('gov','ai')">제조AI특화</button>
+      <button class="sub-btn" onclick="showSub('gov','auto')">자율형공장</button>
       <button class="sub-btn" onclick="showSub('gov','mentor')">제조DX멘토단</button>
     </div>
 
-    <!-- 1. 정부형 스마트공장 구축 -->
-    <div id="sub-gov-build" data-apply="https://smart-factory.kr" class="sub-panel active">
+    <!-- 1. 정부일반형 -->
+    <div id="sub-gov-build" class="sub-panel active">
 
-      <div class="section-header">정부형 스마트공장 구축사업</div>
-      <div class="section-desc">중소·중견기업 제조 현장에 적합한 고도화 수준의 스마트공장을 지원하여 기업의 제조혁신 경쟁력 향상 도모</div>
+      <div class="section-header">정부일반형 스마트공장 구축</div>
+      <div class="section-desc">중소·중견기업의 제조 현장에 적합한 고도화 수준의 스마트공장을 지원하여 기업의 제조혁신 경쟁력 향상 도모</div>
 
       <div class="stat-row stat-gov">
-        <div class="stat"><div class="stat-num">2<span>억 원</span></div><div class="stat-label">최대 지원금</div></div>
-        <div class="stat"><div class="stat-num">50<span>%</span></div><div class="stat-label">지원비율 (이내)</div></div>
+        <div class="stat"><div class="stat-num">2<span>억 원</span></div><div class="stat-label">회당 최대 지원금</div></div>
+        <div class="stat"><div class="stat-num">50~70<span>%</span></div><div class="stat-label">지원비율 (이내)</div></div>
         <div class="stat"><div class="stat-num">9<span>개월</span></div><div class="stat-label">최대 사업기간</div></div>
       </div>
 
@@ -1053,8 +1080,8 @@
           <span class="info-value">중소벤처기업부</span>
         </div>
         <div class="info-row">
-          <span class="info-label">수행기관</span>
-          <span class="info-value">스마트제조혁신추진단</span>
+          <span class="info-label">운영기관</span>
+          <span class="info-value">중소기업기술정보진흥원</span>
         </div>
         <div class="info-row">
           <span class="info-label">지원대상</span>
@@ -1062,37 +1089,57 @@
         </div>
         <div class="info-row">
           <span class="info-label">지원내용</span>
-          <span class="info-value" style="text-align:left;font-size:12px;">ICT로 제품의 기획-설계-제조-판매 과정을 통합하여 제조 공정을 최적화하는 스마트공장 구축지원<br><br>제품설계·생산공정 개선 등을 위한 솔루션 구축 및 자동화 장비·제어기·센서 등 구축 지원</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">ICT로 제품의 기획-설계-제조-판매 과정을 통합하여 제조공정을 최적화하는 스마트공장 구축 지원<br><br>제품설계·생산공정 개선 등을 위한 솔루션 구축 및 솔루션과 연동되는 자동화 장비·제어기·센서 등 구축 지원</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원과제</span>
+          <span class="info-value">428개 내외</span>
         </div>
         <div class="info-row">
           <span class="info-label">지원비율</span>
-          <span class="info-value"><strong>50%</strong> 이내</span>
+          <span class="info-value"><strong>50~70%</strong> 이내</span>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title"><span class="bar bar-gov"></span>유형별 지원 내용</div>
-        <div class="type-grid">
+        <div class="group">
+          <div class="group-head"><span class="group-title">목표수준별 최대 2회 지원</span><span class="group-count">총 2.5억 원 한도</span></div>
+          <div class="type-grid">
           <div class="type-card">
-            <div class="type-name">고도화</div>
-            <div class="type-sub">구축목표수준: 중간1 이상</div>
-            <div class="type-meta">
-              <span class="type-tag tag-green">최대 2억 원</span>
-              <span class="type-tag tag-gray">최대 9개월</span>
-            </div>
+            <div class="type-name">1회차 · 고도화</div>
+            <div class="type-sub">구축목표수준: 중간1 이상, 목표설정 필수</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 2억 원</span><span class="type-tag tag-gray">최대 9개월</span><span class="type-tag tag-gray">50~70% 이내</span></div>
           </div>
           <div class="type-card">
-            <div class="type-name">고도화 (동일수준)</div>
-            <div class="type-sub">목표설정 필수</div>
-            <div class="type-meta">
-              <span class="type-tag tag-green">최대 0.5억 원</span>
-              <span class="type-tag tag-gray">최대 9개월</span>
-            </div>
+            <div class="type-name">2회차 · 고도화(동일수준)</div>
+            <div class="type-sub">1회차 고도화 완료(성공 판정) 이후 지원 가능</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 2억 원 (총 한도 내)</span><span class="type-tag tag-gray">최대 9개월</span><span class="type-tag tag-gray">50~70% 이내</span></div>
+          </div>
           </div>
         </div>
-        <div class="note-box">
-          ※ 구축목표수준은 KS X 9001-1(스마트공장 기본개념과 구조) 표준 기준
+        <div class="group">
+          <div class="group-head"><span class="group-title">경과 규정</span><span class="group-count">2026년 이전 고도화 기업</span></div>
+          <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">동일수준 (경과 적용)</div>
+            <div class="type-sub">'26년 공고('25.11) 전 구축사업으로 고도화 지원을 받은 기업이 '27년 동일수준을 신청하는 경우, 목표수준별 1회만 지원</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 0.5억 원</span><span class="type-tag tag-gray">6개월 이내</span></div>
+          </div>
+          </div>
         </div>
+        <div class="note-box">※ (예) '26년(목표수준 중간1, 고도화) 1.5억 → '27년 이후(목표수준 중간1, 동일수준) 1억<br>
+          ※ 구축목표수준은 KS X 9001-1(스마트공장 기본개념과 구조) 표준 기준</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>지원 일정</div>
+        <div class="steps">
+          <div class="step"><div class="step-title">사업공고</div><div class="step-desc">2026.11</div></div>
+          <div class="step"><div class="step-title">신청 접수</div><div class="step-desc">2026.11 ~ 2027.1</div></div>
+          <div class="step"><div class="step-title">평가·선정</div><div class="step-desc">2027.1 ~ 3</div></div>
+        </div>
+        <div class="note-box">※ 지원 과제수 및 추진 일정은 사정에 따라 변경될 수 있으니, 개별 사업공고를 반드시 확인해 주세요.</div>
       </div>
 
       <div class="card cta-card">
@@ -1104,14 +1151,14 @@
     </div>
 
     <!-- 2. 제조AI특화 -->
-    <div id="sub-gov-ai" data-apply="https://smart-factory.kr" class="sub-panel">
+    <div id="sub-gov-ai" class="sub-panel">
 
-      <div class="section-header">제조AI특화 스마트공장 구축지원사업</div>
+      <div class="section-header">제조AI특화 스마트공장 (자율형공장 AI트랙)</div>
       <div class="section-desc">제조현장의 업종과 공정에 특화된 맞춤형 AI 지원을 통한 중소 제조기업의 자율제조기반 마련으로 제조업 경쟁력 강화 도모</div>
 
       <div class="stat-row stat-gov">
         <div class="stat"><div class="stat-num">2<span>억 원</span></div><div class="stat-label">최대 지원금</div></div>
-        <div class="stat"><div class="stat-num">50<span>%</span></div><div class="stat-label">지원비율 (이내)</div></div>
+        <div class="stat"><div class="stat-num">50~70<span>%</span></div><div class="stat-label">지원비율 (이내)</div></div>
         <div class="stat"><div class="stat-num">9<span>개월</span></div><div class="stat-label">최대 사업기간</div></div>
       </div>
       <div class="stat-cap">※ 데이터 수집·검증 유형은 최대 0.5억 원, 최대 6개월입니다.</div>
@@ -1119,109 +1166,273 @@
       <div class="card">
         <div class="card-title"><span class="bar bar-gov"></span>사업 개요</div>
         <div class="info-row">
+          <span class="info-label">주관</span>
+          <span class="info-value">중소벤처기업부</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">운영기관</span>
+          <span class="info-value">중소기업기술정보진흥원</span>
+        </div>
+        <div class="info-row">
           <span class="info-label">지원대상</span>
-          <span class="info-value">AI 스마트공장 구축을 희망하는<br>국내 중소·중견 제조기업</span>
+          <span class="info-value">국내 중소·중견기업 중<br>AI 스마트공장 구축을 희망하는 기업</span>
         </div>
         <div class="info-row">
           <span class="info-label">지원내용</span>
-          <span class="info-value" style="text-align:left;font-size:12px;">AI에이전트, 온디바이스AI 등 AI기술을 활용하여 공정최적화, 예측유지보수 등을 지원하는 AI공장 구축</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">AI에이전트, 온디바이스AI 등 AI기술을 활용하여 공정최적화, 예측유지보수 등을 지원하는 AI공장 구축 지원<br><br>데이터 수집·활용 체계가 미흡한 기업은 '데이터 수집·검증' 유형을 우선 지원받은 후 AI공장 구축으로 연계</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원과제</span>
+          <span class="info-value">500개 내외</span>
         </div>
         <div class="info-row">
           <span class="info-label">지원비율</span>
-          <span class="info-value"><strong>50%</strong> 이내</span>
+          <span class="info-value"><strong>50~70%</strong> 이내</span>
         </div>
       </div>
 
       <div class="card">
         <div class="card-title"><span class="bar bar-gov"></span>유형별 지원 내용</div>
-        <div class="type-grid">
+        <div class="group">
+          <div class="group-head"><span class="group-title">유형 선택</span><span class="group-count">둘 중 하나</span></div>
+          <div class="type-grid">
           <div class="type-card">
             <div class="type-name">AI공장 구축</div>
-            <div class="type-sub">구축목표수준: 중간1 이상 목표설정<br>기존 수준이상 달성 필수 (동일수준 가능)</div>
-            <div class="type-meta">
-              <span class="type-tag tag-green">최대 2억 원</span>
-              <span class="type-tag tag-gray">최대 9개월</span>
-            </div>
+            <div class="type-sub">구축목표수준: 중간1 이상 목표설정<br>기존 구축 수준 이상 달성 필수 (동일수준 가능)</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 2억 원</span><span class="type-tag tag-gray">최대 9개월</span><span class="type-tag tag-gray">50~70% 이내</span></div>
           </div>
           <div class="type-card">
             <div class="type-name">데이터 수집·검증</div>
-            <div class="type-sub">목표수준 없음<br>기존 수준이상 달성 필수 (동일수준 가능)</div>
-            <div class="type-meta">
-              <span class="type-tag tag-green">최대 0.5억 원</span>
-              <span class="type-tag tag-gray">최대 6개월</span>
-            </div>
+            <div class="type-sub">목표수준 없음 (향후 AI공장 구축 연계 지원 시 설정)<br>기존 구축 수준 이상 달성 필수 (동일수준 가능)</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 0.5억 원</span><span class="type-tag tag-gray">최대 6개월</span><span class="type-tag tag-gray">50~70% 이내</span></div>
+          </div>
           </div>
         </div>
-        <div class="note-box">
-          ※ 자율형공장, 대중소상생형(AI트랙), '25년 제조AI특화 사업과는 동시수행 불가<br>
-          ※ 구축목표수준은 KS X 9001-1 표준 기준 참고<br>
-          ※ "고도" 단계 정의: 단위 공정이 아닌 "공장 전반"의 완전자동화 수준
-        </div>
+        <div class="note-box">※ 구축 전후 수준 예: 기초→중간1, 중간1→중간1 또는 중간2, 중간2→중간2<br>
+          ※ 구축목표수준은 KS X 9001-1 표준 기준</div>
       </div>
 
       <div class="card">
-        <div class="card-title"><span class="bar bar-gov"></span>관련 웹사이트</div>
-        <div class="info-row">
-          <span class="info-label">사업관리</span>
-          <span class="info-value"><a href="https://smart-factory.kr" target="_blank" style="color:var(--gtp-green);">smart-factory.kr</a></span>
+        <div class="card-title"><span class="bar bar-gov"></span>지원 일정</div>
+        <div class="steps">
+          <div class="step"><div class="step-title">사업공고</div><div class="step-desc">2026.11</div></div>
+          <div class="step"><div class="step-title">신청 접수</div><div class="step-desc">2026.11 ~ 2027.1</div></div>
+          <div class="step"><div class="step-title">평가·선정</div><div class="step-desc">2027.1 ~ 3</div></div>
         </div>
-        <div class="info-row">
-          <span class="info-label">카카오톡</span>
-          <span class="info-value">플러스 친구 (1357 중소기업통합콜센터)</span>
-        </div>
-      </div>
-
-      <div class="card cta-card">
-        <p>지역별 문의처 | 스마트제조혁신센터<br><br>
-        경기 남부 ☎ 031-500-3100<br>
-        경기 북부 ☎ 031-539-5140<br><br>
-        ※ 그 밖의 지역은 스마트공장 사업관리시스템 참조</p>
-        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
-      </div>
-    </div>
-
-    <!-- 3. 제조DX멘토단 -->
-    <div id="sub-gov-mentor" class="sub-panel">
-
-      <div class="section-header">제조DX멘토단 활용지원사업</div>
-      <div class="section-desc">제조혁신 전문가(제조DX멘토단)를 활용하여 스마트공장 기획·구축 지도 및 운영 애로사항 해결지원</div>
-
-      <div class="card">
-        <div class="card-title"><span class="bar bar-gov"></span>사업 개요</div>
-        <div class="info-row">
-          <span class="info-label">지원대상</span>
-          <span class="info-value" style="text-align:left;font-size:12px;">· 스마트공장 구축 희망기업<br>· 정부·지자체 지원을 통한 스마트공장 구축기업 및 자체역량으로 스마트공장 수준확인서 보유 기업</span>
-        </div>
-        <div class="info-row">
-          <span class="info-label">지원내용</span>
-          <span class="info-value" style="text-align:left;font-size:12px;">중소기업과 DX멘토단을 <strong>1:1 매칭</strong>하여 사업기획부터 사후관리까지 전주기 밀착 지원</span>
-        </div>
-      </div>
-
-      <div class="card">
-        <div class="card-title"><span class="bar bar-gov"></span>사후 관리 지원</div>
-        <div class="support-item">
-          <strong>신속한 AS</strong>
-          <p>스마트공장 운영과 관련된 HW(부품 등) 및 SW(솔루션 등)의 고장·결함에 대한 신속한 AS</p>
-        </div>
-        <div class="support-item">
-          <strong>HW 및 SW 업그레이드</strong>
-          <p>스마트공장 도입 후 발생되는 생산품목 변경, 공정 개선, 생산 효율성 개선, 보안강화 등에 필요한 업그레이드 지원</p>
-        </div>
-        <div class="support-item">
-          <strong>SW 업그레이드 기능추가</strong>
-          <p>기 구축 스마트공장의 솔루션 버전업, 모듈 추가, 기능추가 지원</p>
-        </div>
-        <div class="support-item">
-          <strong>HW 고장·결함 수리·개조</strong>
-          <p>기 구축 스마트공장 구축범위에 해당하는 HW 중 부품의 고장·결함 수리, 기능 개조 지원<br><span style="font-size:11px;color:#B8860B;">※ 부품이 아닌 단독 설비 개체는 지원 불가</span></p>
-        </div>
+        <div class="note-box">※ 지원 과제수 및 추진 일정은 사정에 따라 변경될 수 있으니, 개별 사업공고를 반드시 확인해 주세요.</div>
       </div>
 
       <div class="card cta-card">
         <p>지역별 문의처 | 스마트제조혁신센터<br><br>
         경기 남부 ☎ 031-500-3100<br>
         경기 북부 ☎ 031-539-5140</p>
+        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 3. 자율형공장 -->
+    <div id="sub-gov-auto" class="sub-panel">
+
+      <div class="section-header">자율형공장 구축</div>
+      <div class="section-desc">AI·디지털트윈 기반 실시간 관제, 분석, 예측 등으로 작업자 개입을 최소화하는 스마트공장 선도모델 구축 지원</div>
+
+      <div class="stat-row stat-gov">
+        <div class="stat"><div class="stat-num">6<span>억 원</span></div><div class="stat-label">최대 지원금 (2년)</div></div>
+        <div class="stat"><div class="stat-num">50<span>%</span></div><div class="stat-label">지원비율 (이내)</div></div>
+        <div class="stat"><div class="stat-num">2<span>년</span></div><div class="stat-label">최대 사업기간</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">주관</span>
+          <span class="info-value">중소벤처기업부</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">운영기관</span>
+          <span class="info-value">중소기업기술정보진흥원</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">도입기업</span>
+          <span class="info-value">국내 중소·중견 제조기업 중<br>'중간1' 이상 스마트공장 구축기업 또는<br>'중간1' 이상 수준확인기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">공급기업</span>
+          <span class="info-value">'스마트제조 전문기업'으로 등록된 기업 중<br>AI·DT 기반 자율제어 구축 역량 보유기업 또는 협업체</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원내용</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">주요 설비 및 공정에 AI 기술을 도입하여 실시간 데이터 수집·분석을 통한 설비 이상 징후 사전 예측<br><br>디지털트윈으로 신규 공정에 발생할 수 있는 변수를 사전에 시뮬레이션하여 최적의 공정 설계 및 운영 방안 지원</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원과제</span>
+          <span class="info-value">30개 내외</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원비율</span>
+          <span class="info-value">총 사업비의 <strong>50%</strong> 이내</span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>유형별 지원 내용</div>
+        <div class="group">
+          <div class="group-head"><span class="group-title">고도화</span><span class="group-count">최대 2년</span></div>
+          <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">자율형공장 구축</div>
+            <div class="type-sub">구축목표수준: 중간1 이상</div>
+            <div class="type-meta"><span class="type-tag tag-green">연 3억 원 (2년 6억 원)</span><span class="type-tag tag-gray">최대 2년</span><span class="type-tag tag-gray">50% 이내</span></div>
+          </div>
+          </div>
+        </div>
+        <div class="note-box">※ 공급기업 요건인 '스마트제조 전문기업'은 우수 공급기업 대상 요건검토 및 현장실사를 거쳐 시범지정 중이며, 1차('26.11.19), 2차('26.12 중순) 스마트공장 사업관리시스템(smart-factory.kr)에 발표 및 대상기업 통보 예정</div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>지원 일정</div>
+        <div class="steps">
+          <div class="step"><div class="step-title">사업공고</div><div class="step-desc">2026.11</div></div>
+          <div class="step"><div class="step-title">신청 접수</div><div class="step-desc">2026.11 ~ 2027.1</div></div>
+          <div class="step"><div class="step-title">평가·선정</div><div class="step-desc">2027.1 ~ 3</div></div>
+        </div>
+        <div class="note-box">※ 지원 과제수 및 추진 일정은 사정에 따라 변경될 수 있으니, 개별 사업공고를 반드시 확인해 주세요.</div>
+      </div>
+
+      <div class="card cta-card">
+        <p>문의처 | 중소기업기술정보진흥원<br><br>
+        ☎ 044-300-0952, 0959</p>
+        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 4. 제조DX멘토단 활용지원 -->
+    <div id="sub-gov-mentor" class="sub-panel">
+
+      <div class="section-header">제조DX멘토단 활용지원</div>
+      <div class="section-desc">대기업 등 현장경험이 풍부한 제조혁신 전문가(DX멘토단)를 활용하여 스마트공장 기획·운영 지도 및 운영 애로사항 해결 지원</div>
+
+      <div class="stat-row stat-gov">
+        <div class="stat"><div class="stat-num">1,900<span>만 원</span></div><div class="stat-label">사후관리 최대</div></div>
+        <div class="stat"><div class="stat-num">50<span>%</span></div><div class="stat-label">지원비율</div></div>
+        <div class="stat"><div class="stat-num">4<span>개월</span></div><div class="stat-label">사후관리 기간</div></div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>사업 개요</div>
+        <div class="info-row">
+          <span class="info-label">주관</span>
+          <span class="info-value">중소벤처기업부</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">운영기관</span>
+          <span class="info-value">중소기업기술정보진흥원</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원대상</span>
+          <span class="info-value">국내 중소·중견기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원내용</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">기업과 DX멘토단을 <strong>1:1 매칭</strong>하여 사업기획부터 사후관리까지 전주기 밀착 지원</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원과제</span>
+          <span class="info-value">1,310개 내외<br>(컨설팅 1,100 + 사후관리 210)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원비율</span>
+          <span class="info-value">정부 지원 비중 <strong>50%</strong></span>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>유형별 지원 내용</div>
+        <div class="group">
+          <div class="group-head"><span class="group-title">컨설팅 지원</span><span class="group-count">3개 유형</span></div>
+          <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">사전기획</div>
+            <div class="type-sub">스마트공장 구축지원사업 참여 희망기업 대상 도입 전략 수립 컨설팅 (8회)</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 140만 원</span><span class="type-tag tag-gray">최대 3개월</span><span class="type-tag tag-gray">50%</span></div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">구축지도</div>
+            <div class="type-sub">선도형 스마트공장 선정기업 대상 구축지도 (4회)</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 70만 원</span><span class="type-tag tag-gray">최대 3개월</span><span class="type-tag tag-gray">50%</span></div>
+          </div>
+          <div class="type-card">
+            <div class="type-name">AX기획</div>
+            <div class="type-sub">AI를 도입한 스마트공장 구축지원사업 참여 희망기업 대상 도입 전략 수립 컨설팅 (8회)</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 280만 원</span><span class="type-tag tag-gray">최대 3개월</span><span class="type-tag tag-gray">50%</span></div>
+          </div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-head"><span class="group-title">사후관리 지원</span><span class="group-count">1개 유형</span></div>
+          <div class="type-grid">
+          <div class="type-card">
+            <div class="type-name">사후관리</div>
+            <div class="type-sub">부품수리·교체, 하드웨어 및 소프트웨어 업그레이드 등 스마트공장 활용률 제고를 위한 유지보수 지원</div>
+            <div class="type-meta"><span class="type-tag tag-green">최대 1,900만 원</span><span class="type-tag tag-gray">최대 4개월</span><span class="type-tag tag-gray">50%</span></div>
+          </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-title"><span class="bar bar-gov"></span>지원 일정</div>
+        <div class="group">
+          <div class="group-head"><span class="group-title">컨설팅 지원</span></div>
+          <div class="type-grid">
+        <div class="steps">
+          <div class="step"><div class="step-title">사업공고</div><div class="step-desc">2026.12</div></div>
+          <div class="step"><div class="step-title">신청·평가</div><div class="step-desc">상시</div></div>
+        </div>
+          </div>
+        </div>
+        <div class="group">
+          <div class="group-head"><span class="group-title">사후관리 지원</span></div>
+          <div class="type-grid">
+        <div class="steps">
+          <div class="step"><div class="step-title">사업공고</div><div class="step-desc">2026.12</div></div>
+          <div class="step"><div class="step-title">신청 접수</div><div class="step-desc">2027.2 ~ 3</div></div>
+          <div class="step"><div class="step-title">평가·선정</div><div class="step-desc">2027.4 ~ 5</div></div>
+        </div>
+          </div>
+        </div>
+        <div class="note-box">※ 지원 과제수 및 추진 일정은 사정에 따라 변경될 수 있으니, 개별 사업공고를 반드시 확인해 주세요.</div>
+      </div>
+
+      <div class="card cta-card">
+        <p>지역별 문의처 | 스마트제조혁신센터<br><br>
+        경기 남부 ☎ 031-500-3100<br>
+        경기 북부 ☎ 031-539-5140</p>
+        <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
+      </div>
+    </div>
+
+    <!-- 정부형 공통 안내 -->
+    <div class="card" id="gov-common">
+      <div class="card-title"><span class="bar bar-gov"></span>공통 안내 (4개 사업 공통)</div>
+      <button class="toggle-btn" data-show="신청 자격·방법·제외 대상 보기 ▾" data-hide="신청 자격·방법·제외 대상 닫기 ▴" onclick="toggleDetail(this)">신청 자격·방법·제외 대상 보기 ▾</button>
+      <div class="toggle-detail">
+        <div class="info-row">
+          <span class="info-label">신청 자격</span>
+          <span class="info-value">국내 중소·중견기업</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">신청 방법</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">smart-factory.kr 접속 → 회원가입 → 로그인 → 사업관리 → 과제신청 → 사업계획서 내용입력</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">공고 확인</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">중기부 누리집(www.mss.go.kr), 스마트공장 사업관리시스템(smart-factory.kr)</span>
+        </div>
+        <div class="info-row">
+          <span class="info-label">지원 제외</span>
+          <span class="info-value" style="text-align:left;font-size:12px;">휴·폐업 중인 기업<br>국세 및 지방세 체납 중인 기업<br>유흥·향락업, 숙박·음식점<br>불건전 오락용품 제조업<br>개별 사업공고의 '신청 제한' 또는 '지원 제외' 사항에 해당하는 기업<br>스마트 제조혁신 지원사업에서 '참여제한' 중인 기업</span>
+        </div>
       </div>
     </div>
 
@@ -1315,7 +1526,7 @@ function showSub(main, sub) {
   panel.querySelectorAll('.sub-panel').forEach(p => { fadeOut(p); p.classList.remove('active'); });
 
   const allSubBtns = panel.querySelectorAll('.sub-btn');
-  const subIds = main === 'gd' ? ['build','tourco','tourgo'] : ['build','ai','mentor'];
+  const subIds = main === 'gd' ? ['build','tourco','tourgo'] : ['build','ai','auto','mentor'];
   const idx = subIds.indexOf(sub);
   if (idx >= 0 && allSubBtns[idx]) allSubBtns[idx].classList.add(cls);
 
@@ -1331,12 +1542,14 @@ function showSub(main, sub) {
 /* === Animation 3: Accordion slide === */
 function toggleDetail(btn) {
   var detail = btn.nextElementSibling;
+  var show = btn.getAttribute('data-show') || '25개 시·군 지원 상세 보기 ▾';
+  var hide = btn.getAttribute('data-hide') || '25개 시·군 지원 상세 닫기 ▴';
   if (detail.classList.contains('open')) {
     detail.classList.remove('open');
-    btn.textContent = '25개 시·군 지원 상세 보기 ▾';
+    btn.textContent = show;
   } else {
     detail.classList.add('open');
-    btn.textContent = '25개 시·군 지원 상세 닫기 ▴';
+    btn.textContent = hide;
   }
 }
 
