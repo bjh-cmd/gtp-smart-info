@@ -646,6 +646,21 @@
   .card.visible .req:nth-child(4), .card.visible .req:nth-child(4) .req-n { transition-delay: .65s; }
   .card.visible .req:nth-child(5), .card.visible .req:nth-child(5) .req-n { transition-delay: .8s; }
 
+  /* 한눈에 보기: 3단계 카드 */
+  .flow-3 { align-items: stretch; gap: 2px; }
+  .flow-3 .flow-step { padding: 11px 6px 10px; display: flex; flex-direction: column; align-items: center; gap: 3px; background: #fff; border: 1px solid var(--border); border-top: 3px solid var(--fc); text-align: center; border-radius: 10px; }
+  .flow-3 .fs-1 { --fc: #1B6EA6; } .flow-3 .fs-2 { --fc: #2F8CA0; } .flow-3 .fs-3 { --fc: #1F8A8A; }
+  .fs-ico { font-style: normal; font-size: 22px; line-height: 1.2; }
+  .flow-3 .flow-step b { font-size: 12.5px; font-weight: 800; color: var(--fc); }
+  .flow-3 .flow-step small { font-size: 10.5px; line-height: 1.45; color: var(--text); font-weight: 600; word-break: keep-all; }
+  .flow-3 .flow-step em { font-style: normal; font-size: 10px; line-height: 1.4; color: var(--sub); margin-top: 2px; padding-top: 5px; border-top: 1px dashed var(--border); width: 100%; word-break: keep-all; }
+  .flow-3 .flow-arrow { display: flex; align-items: center; width: 10px; justify-content: center; }
+  .flow-3 .flow-arrow b { display: inline-block; font-weight: 700; color: var(--gtp-blue); animation: flowNudge 1.6s ease-in-out infinite; }
+  .flow-3 .flow-arrow:nth-of-type(2) b { animation-delay: .5s; }
+  @keyframes flowNudge { 0%,100% { transform: translateX(-2px); opacity: .35; } 50% { transform: translateX(3px); opacity: 1; } }
+  .flow-ict { position: relative; overflow: hidden; }
+  .flow-ict::after { content: ''; position: absolute; top: 0; bottom: 0; width: 40%; left: -50%; background: linear-gradient(100deg, transparent, rgba(255,255,255,.35), transparent); animation: ictSweep 3.2s ease-in-out 1.8s infinite; }
+  @keyframes ictSweep { 0% { left: -50%; } 55%,100% { left: 120%; } }
   /* === Motion polish === */
   .card, .type-card, .comp, .stat-row {
     opacity: 0; transform: translateY(16px);
@@ -756,13 +771,12 @@
 
     <div class="card">
       <div class="card-title"><span class="bar bar-n"></span>스마트공장 한눈에 보기</div>
-      <div class="flow">
-        <div class="flow-step">기획</div><span class="flow-arrow">›</span>
-        <div class="flow-step">설계</div><span class="flow-arrow">›</span>
-        <div class="flow-step">생산</div><span class="flow-arrow">›</span>
-        <div class="flow-step">판매</div>
+      <div class="flow flow-3">
+        <div class="flow-step fs-1"><i class="fs-ico">📐</i><b>기획·설계</b><small>가상공간에서 제작 전 시뮬레이션</small><em>기간 단축, 맞춤형 제품개발</em></div><span class="flow-arrow"><b>›</b></span>
+        <div class="flow-step fs-2"><i class="fs-ico">🏭</i><b>생산</b><small>설비·자재·시스템 간 실시간 정보교환</small><em>다품종 대량생산, 설비효율</em></div><span class="flow-arrow"><b>›</b></span>
+        <div class="flow-step fs-3"><i class="fs-ico">🚚</i><b>유통·판매</b><small>생산 현황에 맞춘 실시간 자동 수발주</small><em>재고비용 감소, 전 분야 협력</em></div>
       </div>
-      <div class="flow-ict">ICT로 전 과정의 정보를 연결·통합</div>
+      <div class="flow-ict">🔗 ICT로 전 과정의 정보를 연결·통합</div>
       <p class="home-note">공정별로 따로 운영되던 설비와 정보를 데이터로 연결해, 현장의 상황을 실시간으로 파악하고 개선할 수 있도록 합니다.</p>
     </div>
 
