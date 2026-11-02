@@ -701,6 +701,12 @@
   .section-desc + .stat-row { background: rgba(255,255,255,.88); border-top: 1px dashed var(--border); border-radius: 0 0 14px 14px; margin-top: 0; opacity: 1 !important; transform: none !important; transition: none; }
   .content { padding-bottom: 0; }
   .footer { margin-top: 0; }
+  /* 탭 가운데 정렬 */
+  .sub-nav .sub-btn:first-child { margin-left: auto; }
+  .sub-nav .sub-btn:last-child { margin-right: auto; }
+  /* 시군 목록: 시군 단위로만 줄바꿈 */
+  .cities { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 5px; margin-top: 6px; }
+  .cities i { font-style: normal; font-size: 11px; font-weight: 500; white-space: nowrap; padding: 2px 7px; border-radius: 6px; background: rgba(31,138,138,.09); color: var(--sub); }
   /* === Motion polish === */
   .card, .type-card, .comp, .stat-row {
     opacity: 0; transform: translateY(16px);
@@ -1318,10 +1324,10 @@
         <p>지역별 문의처<br><br>
         <strong>경기 남부</strong> ☎ 031-500-3100<br>
         경기테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">수원시, 성남시, 안양시, 부천시, 광명시, 평택시, 안산시, 과천시, 오산시, 시흥시, 군포시, 의왕시, 하남시, 용인시, 이천시, 안성시, 김포시, 화성시, 광주시, 여주시, 양평군</span><br><br>
+        <span class="cities"><i>수원시</i><i>성남시</i><i>안양시</i><i>부천시</i><i>광명시</i><i>평택시</i><i>안산시</i><i>과천시</i><i>오산시</i><i>시흥시</i><i>군포시</i><i>의왕시</i><i>하남시</i><i>용인시</i><i>이천시</i><i>안성시</i><i>김포시</i><i>화성시</i><i>광주시</i><i>여주시</i><i>양평군</i></span><br><br>
         <strong>경기 북부</strong> ☎ 031-539-5140<br>
         경기대진테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">의정부시, 고양시, 파주시, 양주시, 구리시, 남양주시, 동두천시, 포천시, 가평군, 연천군</span></p>
+        <span class="cities"><i>의정부시</i><i>고양시</i><i>파주시</i><i>양주시</i><i>구리시</i><i>남양주시</i><i>동두천시</i><i>포천시</i><i>가평군</i><i>연천군</i></span></p>
         <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
       </div>
     </div>
@@ -1402,10 +1408,10 @@
         <p>지역별 문의처<br><br>
         <strong>경기 남부</strong> ☎ 031-500-3100<br>
         경기테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">수원시, 성남시, 안양시, 부천시, 광명시, 평택시, 안산시, 과천시, 오산시, 시흥시, 군포시, 의왕시, 하남시, 용인시, 이천시, 안성시, 김포시, 화성시, 광주시, 여주시, 양평군</span><br><br>
+        <span class="cities"><i>수원시</i><i>성남시</i><i>안양시</i><i>부천시</i><i>광명시</i><i>평택시</i><i>안산시</i><i>과천시</i><i>오산시</i><i>시흥시</i><i>군포시</i><i>의왕시</i><i>하남시</i><i>용인시</i><i>이천시</i><i>안성시</i><i>김포시</i><i>화성시</i><i>광주시</i><i>여주시</i><i>양평군</i></span><br><br>
         <strong>경기 북부</strong> ☎ 031-539-5140<br>
         경기대진테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">의정부시, 고양시, 파주시, 양주시, 구리시, 남양주시, 동두천시, 포천시, 가평군, 연천군</span></p>
+        <span class="cities"><i>의정부시</i><i>고양시</i><i>파주시</i><i>양주시</i><i>구리시</i><i>남양주시</i><i>동두천시</i><i>포천시</i><i>가평군</i><i>연천군</i></span></p>
         <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
       </div>
     </div>
@@ -1483,10 +1489,10 @@
         <p>지역별 문의처<br><br>
         <strong>경기 남부</strong> ☎ 031-500-3100<br>
         경기테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">수원시, 성남시, 안양시, 부천시, 광명시, 평택시, 안산시, 과천시, 오산시, 시흥시, 군포시, 의왕시, 하남시, 용인시, 이천시, 안성시, 김포시, 화성시, 광주시, 여주시, 양평군</span><br><br>
+        <span class="cities"><i>수원시</i><i>성남시</i><i>안양시</i><i>부천시</i><i>광명시</i><i>평택시</i><i>안산시</i><i>과천시</i><i>오산시</i><i>시흥시</i><i>군포시</i><i>의왕시</i><i>하남시</i><i>용인시</i><i>이천시</i><i>안성시</i><i>김포시</i><i>화성시</i><i>광주시</i><i>여주시</i><i>양평군</i></span><br><br>
         <strong>경기 북부</strong> ☎ 031-539-5140<br>
         경기대진테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">의정부시, 고양시, 파주시, 양주시, 구리시, 남양주시, 동두천시, 포천시, 가평군, 연천군</span></p>
+        <span class="cities"><i>의정부시</i><i>고양시</i><i>파주시</i><i>양주시</i><i>구리시</i><i>남양주시</i><i>동두천시</i><i>포천시</i><i>가평군</i><i>연천군</i></span></p>
         <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
       </div>
     </div>
@@ -1593,10 +1599,10 @@
         <p>지역별 문의처<br><br>
         <strong>경기 남부</strong> ☎ 031-500-3100<br>
         경기테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">수원시, 성남시, 안양시, 부천시, 광명시, 평택시, 안산시, 과천시, 오산시, 시흥시, 군포시, 의왕시, 하남시, 용인시, 이천시, 안성시, 김포시, 화성시, 광주시, 여주시, 양평군</span><br><br>
+        <span class="cities"><i>수원시</i><i>성남시</i><i>안양시</i><i>부천시</i><i>광명시</i><i>평택시</i><i>안산시</i><i>과천시</i><i>오산시</i><i>시흥시</i><i>군포시</i><i>의왕시</i><i>하남시</i><i>용인시</i><i>이천시</i><i>안성시</i><i>김포시</i><i>화성시</i><i>광주시</i><i>여주시</i><i>양평군</i></span><br><br>
         <strong>경기 북부</strong> ☎ 031-539-5140<br>
         경기대진테크노파크 경기스마트제조혁신센터<br>
-        <span style="font-size:11px;opacity:.85;">의정부시, 고양시, 파주시, 양주시, 구리시, 남양주시, 동두천시, 포천시, 가평군, 연천군</span></p>
+        <span class="cities"><i>의정부시</i><i>고양시</i><i>파주시</i><i>양주시</i><i>구리시</i><i>남양주시</i><i>동두천시</i><i>포천시</i><i>가평군</i><i>연천군</i></span></p>
         <a href="https://smart-factory.kr" target="_blank" class="cta-btn cta-btn-gov">온라인 신청 바로가기</a>
       </div>
     </div>
