@@ -694,6 +694,11 @@
   .footer { margin: 4px 14px 0; padding: 16px 14px 18px; background: rgba(255,255,255,.88); border: 1px solid var(--border); border-radius: 14px; color: #6B7280; }
   @media (min-width: 588px) { .footer { max-width: 532px; margin-left: auto; margin-right: auto; } }
   body { padding-bottom: 96px; }
+  /* 제목·설명·핵심 수치를 한 장의 카드로 */
+  .section-desc:has(+ .stat-row) { border-radius: 0; border-bottom: none; margin-bottom: 0; padding-bottom: 12px; }
+  .section-desc + .stat-row { background: rgba(255,255,255,.88); border-top: 1px dashed var(--border); border-radius: 0 0 14px 14px; margin-top: 0; opacity: 1 !important; transform: none !important; transition: none; }
+  .content { padding-bottom: 0; }
+  .footer { margin-top: 0; }
   /* === Motion polish === */
   .card, .type-card, .comp, .stat-row {
     opacity: 0; transform: translateY(16px);
